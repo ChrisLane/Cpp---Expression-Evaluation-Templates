@@ -18,9 +18,10 @@ V Var<V>::eval(env<V> *environment) {
 template<typename V>
 V OpApp<V>::eval(env<V> *environment) {
     V acc = ops.unit;
-    while (args) {
-        acc = ops.binop(acc, args->head->eval(environment));
-        args = args->tail;
+    ExpList<V> *list = args;
+    while (list) {
+        acc = ops.binop(acc, list->head->eval(environment));
+        list = list->tail;
     }
     return acc;
 }
